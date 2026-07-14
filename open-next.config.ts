@@ -1,7 +1,11 @@
 const openNextConfig = {
   default: {
     placement: "regional",
-    runtime: "node"
+    runtime: "node",
+    override: {
+      wrapper: "node",
+      converter: "node"
+    }
   },
   dangerous: {
     disableIncrementalCache: true,
