@@ -1,0 +1,2 @@
+阶段,需要的查询能力,实际使用方式,查过的来源,未查询的来源,未查询原因,对结果的影响,下一步补齐方式,备注
+"本轮查询说明","网页搜索；网页读取；公开地图；社媒公开页","使用 web 搜索、PowerShell 抓取公开网站 HTML、Nominatim/Overpass 公开地图、官网 contact/sitemap 页面和公开 Facebook 链接","souvanny.la；namtheun2.com；sunlabob.com；edl.com.la；OpenStreetMap/Nominatim/Overpass；Google Maps 链接（Nam Theun 2）","浏览器动态操作；PDF 读取；Excel/表格工具；邮箱验证","本轮已能从公开网页与地图拿到足够候选；动态浏览和邮件验证不是必需步骤","部分客户缺少完整联系人、社媒和采购入口；个别官网无法稳定读取","人工电话复查；继续搜官网 contact / procurement；补查公开社媒页和地图详情","结果已按客户开发总表整理"
