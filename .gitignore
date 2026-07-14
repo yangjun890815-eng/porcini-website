@@ -1,8 +1,12 @@
 node_modules
 .next
+.open-next
 out
 dist
 .vercel
+.wrangler
+.sites-artifact
+sites-open-next.tgz
 .agents
 skills
 .env
