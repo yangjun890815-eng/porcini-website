@@ -40,9 +40,17 @@ async function patchWindowsEsmImport() {
     'from"next/dist/server/next-server.js"',
     'from"./node_modules/next/dist/server/next-server.js"'
   );
+  const patchedNextImportMode = patchedNodeModules.replace(
+    'import eoe from"./node_modules/next/dist/server/next-server.js";',
+    'import * as eoe from"./node_modules/next/dist/server/next-server.js";'
+  );
+  const patchedNextServerCtor = patchedNextImportMode.replace(
+    "new eoe.default({",
+    'new (eoe.default?.default ?? eoe["module.exports"]?.default ?? eoe.default)({'
+  );
 
-  if (patchedNodeModules !== source) {
-    await writeFile(serverEntryPath, patchedNodeModules, "utf8");
+  if (patchedNextServerCtor !== source) {
+    await writeFile(serverEntryPath, patchedNextServerCtor, "utf8");
   }
 }
 
