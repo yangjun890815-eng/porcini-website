@@ -40,6 +40,14 @@ async function main() {
   const standaloneServerEntry = path.join(serverDir, "server.js");
   const sitesServerEntry = path.join(serverDir, "index.js");
   await rename(standaloneServerEntry, sitesServerEntry);
+
+  // Remove build-only artifacts and duplicate output from the final deployable artifact.
+  await rm(path.join(distDir, "cache"), { recursive: true, force: true });
+  await rm(path.join(distDir, "diagnostics"), { recursive: true, force: true });
+  await rm(path.join(distDir, "trace"), { force: true });
+  await rm(path.join(distDir, "types"), { recursive: true, force: true });
+  await rm(path.join(distDir, "standalone"), { recursive: true, force: true });
+  await rm(path.join(distDir, "static"), { recursive: true, force: true });
 }
 
 main().catch((error) => {
