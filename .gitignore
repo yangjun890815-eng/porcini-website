@@ -3,9 +3,13 @@ node_modules
 out
 dist
 .vercel
+.agents
+skills
 .env
 .env.local
 .env.production
 coverage
 *.log
-
+*.pdf
+*.csv
+*.tsbuildinfo
