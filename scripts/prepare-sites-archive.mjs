@@ -3,8 +3,8 @@ import path from "node:path";
 
 const root = process.cwd();
 const stagingDir = path.join(root, ".sites-artifact");
-const stagingOpenNextDir = path.join(stagingDir, ".open-next");
 const stagingServerDir = path.join(stagingDir, "dist", "server");
+const stagingOpenNextDir = path.join(stagingServerDir, ".open-next");
 
 async function pruneUnusedImageOptimizer() {
   const manifestPath = path.join(stagingOpenNextDir, "open-next.output.json");
@@ -46,10 +46,10 @@ async function main() {
   await rm(stagingDir, { recursive: true, force: true });
   await mkdir(path.join(stagingDir, ".openai"), { recursive: true });
   await cp(path.join(root, ".openai", "hosting.json"), path.join(stagingDir, ".openai", "hosting.json"));
+  await mkdir(stagingServerDir, { recursive: true });
   await cp(path.join(root, ".open-next"), stagingOpenNextDir, { recursive: true });
   await pruneUnusedImageOptimizer();
   await patchWindowsEsmImport();
-  await mkdir(stagingServerDir, { recursive: true });
   await writeFile(
     path.join(stagingServerDir, "package.json"),
     `${JSON.stringify({ type: "module" })}\n`,
@@ -57,7 +57,7 @@ async function main() {
   );
   await writeFile(
     path.join(stagingServerDir, "index.mjs"),
-    'await import("../../.open-next/server-functions/default/index.mjs");\n',
+    'await import("./.open-next/server-functions/default/index.mjs");\n',
     "utf8"
   );
 }
