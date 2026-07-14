@@ -36,9 +36,13 @@ async function patchWindowsEsmImport() {
     'import(process.cwd()+"/open-next.config.mjs")',
     'import(new URL("./open-next.config.mjs", import.meta.url).href)'
   );
+  const patchedNodeModules = patched.replace(
+    'from"next/dist/server/next-server.js"',
+    'from"./node_modules/next/dist/server/next-server.js"'
+  );
 
-  if (patched !== source) {
-    await writeFile(serverEntryPath, patched, "utf8");
+  if (patchedNodeModules !== source) {
+    await writeFile(serverEntryPath, patchedNodeModules, "utf8");
   }
 }
 
