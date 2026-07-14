@@ -1,3 +1,12 @@
-import { defineCloudflareConfig } from "@opennextjs/cloudflare";
+const openNextConfig = {
+  default: {
+    placement: "regional",
+    runtime: "node"
+  },
+  dangerous: {
+    disableIncrementalCache: true,
+    disableTagCache: true
+  }
+};
 
-export default defineCloudflareConfig({});
+export default openNextConfig;

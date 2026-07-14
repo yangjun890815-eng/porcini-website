@@ -5,11 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "sites:build": "opennextjs-cloudflare build && node scripts/prepare-sites-archive.mjs",
-    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
-    "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
-    "cf-typegen": "npx -y wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
+    "sites:build": "npx --yes --cache .npm-cache --package open-next open-next build && node scripts/prepare-sites-archive.mjs",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc -p tsconfig.typecheck.json --noEmit"
@@ -28,7 +24,6 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
-    "@opennextjs/cloudflare": "^1.20.1",
     "@types/node": "^22.10.2",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",

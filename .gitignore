@@ -6,6 +6,7 @@ dist
 .vercel
 .wrangler
 .sites-artifact
+.npm-cache
 sites-open-next.tgz
 .agents
 skills
