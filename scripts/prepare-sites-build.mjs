@@ -1,4 +1,4 @@
-import { access, cp, mkdir, rename, rm } from "node:fs/promises";
+import { access, cp, mkdir, readFile, rename, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 const root = process.cwd();
@@ -37,9 +37,26 @@ async function main() {
     recursive: true
   }).catch(() => {});
 
+  const serverPackageJsonPath = path.join(serverDir, "package.json");
+  const serverPackageJson = JSON.parse(await readFile(serverPackageJsonPath, "utf8"));
+  serverPackageJson.type = "module";
+  await writeFile(serverPackageJsonPath, `${JSON.stringify(serverPackageJson, null, 2)}\n`, "utf8");
+
   const standaloneServerEntry = path.join(serverDir, "server.js");
-  const sitesServerEntry = path.join(serverDir, "index.js");
-  await rename(standaloneServerEntry, sitesServerEntry);
+  const commonJsServerEntry = path.join(serverDir, "app.cjs");
+  const esmServerEntry = path.join(serverDir, "index.js");
+  await rename(standaloneServerEntry, commonJsServerEntry);
+  await writeFile(
+    esmServerEntry,
+    [
+      'import { createRequire } from "node:module";',
+      "",
+      "const require = createRequire(import.meta.url);",
+      'require("./app.cjs");',
+      ""
+    ].join("\n"),
+    "utf8"
+  );
 
   // Remove build-only artifacts and duplicate output from the final deployable artifact.
   await rm(path.join(distDir, "cache"), { recursive: true, force: true });
