@@ -48,6 +48,14 @@ async function main() {
   await rm(path.join(distDir, "types"), { recursive: true, force: true });
   await rm(path.join(distDir, "standalone"), { recursive: true, force: true });
   await rm(path.join(distDir, "static"), { recursive: true, force: true });
+  await rm(path.join(serverDir, "node_modules", "typescript"), {
+    recursive: true,
+    force: true
+  });
+  await rm(path.join(serverDir, "node_modules", "next", "dist", "compiled", "next-devtools"), {
+    recursive: true,
+    force: true
+  });
 }
 
 main().catch((error) => {
