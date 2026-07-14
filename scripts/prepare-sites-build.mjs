@@ -49,10 +49,7 @@ async function main() {
   await writeFile(
     esmServerEntry,
     [
-      'import { createRequire } from "node:module";',
-      "",
-      "const require = createRequire(import.meta.url);",
-      'require("./app.cjs");',
+      'await import("./app.cjs");',
       ""
     ].join("\n"),
     "utf8"
